@@ -1,0 +1,10 @@
+root = true
+
+[*]
+end_of_line = lf
+trim_trailing_whitespace = ture
+charset = utf-8
+
+[*.{js,ts,tsx,yml,md,json}]
+indent_style = space
+indent_size = 2
