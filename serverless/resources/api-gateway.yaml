@@ -1,0 +1,13 @@
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: rest-api
+      Body: ${file(./resources/open-api/index.yaml)}
+
+  RestApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref RestApi
+      StageName: ${self:provider.apiStage}
+    DependsOn: RestApi

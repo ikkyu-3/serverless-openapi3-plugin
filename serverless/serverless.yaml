@@ -1,0 +1,13 @@
+service: serverless-openapi3-plugin-sample
+
+plugins:
+  localPath: '../dist'
+  modules:
+    - index
+
+provider:
+  name: aws
+  apiStage: ${opt:apiStage, "dev"}
+
+resources:
+  - ${file(./resources/api-gateway.yaml)}
