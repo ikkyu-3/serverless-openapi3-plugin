@@ -1,15 +1,29 @@
 {
   "name": "serverless-openapi3-plugin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Serverless plugin to resolve $ref syntax of OpenAPI3",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "keywords": [
+    "openapi",
+    "serverless"
+  ],
   "repository": "https://github.com/ikkyu-3/serverless-openapi3-plugin.git",
   "author": "ikkyu-3 <toru.hasegawa.0521@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/ikkyu-3/serverless-openapi3-plugin/issues"
+  },
+  "homepage": "https://github.com/ikkyu-3/serverless-openapi3-plugin/blob/master/README.md",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "npm run build && cd serverless && serverless deploy",
+    "teardown": "cd serverless && serverless remove"
   },
   "devDependencies": {
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.8",
+    "@types/serverless": "^1.18.2",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "eslint": "^5.16.0",
@@ -32,5 +46,10 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "dependencies": {
+    "js-yaml": "^3.13.1",
+    "json-refs": "^3.0.13",
+    "lodash": "^4.17.15"
   }
 }
