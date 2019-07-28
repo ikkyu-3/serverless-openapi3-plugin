@@ -1,0 +1,7 @@
+node_modules/
+serverless/
+src/
+.editorconfig
+.eslintignore
+.eslintrc.json
+tsconfig.json
