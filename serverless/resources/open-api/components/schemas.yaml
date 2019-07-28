@@ -1,0 +1,42 @@
+Pets:
+  type: "array"
+  items:
+    $ref: "#/components/schemas/Pet"
+
+Empty:
+  type: "object"
+
+NewPetResponse:
+  type: "object"
+  properties:
+    pet:
+      $ref: "#/components/schemas/Pet"
+    message:
+      type: "string"
+
+Pet:
+  type: "object"
+  properties:
+    id:
+      type: "integer"
+    type:
+      type: "string"
+    price:
+      type: "number"
+
+NewPet:
+  type: "object"
+  properties:
+    type:
+      $ref: "#/components/schemas/PetType"
+    price:
+      type: "number"
+
+PetType:
+  type: "string"
+  enum:
+  - "dog"
+  - "cat"
+  - "fish"
+  - "bird"
+  - "gecko"

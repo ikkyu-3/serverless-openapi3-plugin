@@ -9,5 +9,8 @@ provider:
   name: aws
   apiStage: ${opt:apiStage, "dev"}
 
+custom:
+  openApiPath: './resources/open-api/index.yaml'
+
 resources:
   - ${file(./resources/api-gateway.yaml)}

@@ -1,0 +1,95 @@
+get:
+  parameters:
+  - name: "type"
+    in: "query"
+    schema:
+      type: "string"
+  - name: "page"
+    in: "query"
+    schema:
+      type: "string"
+  responses:
+    200:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Pets"
+  x-amazon-apigateway-integration:
+    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets"
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+    requestParameters:
+      integration.request.querystring.page: "method.request.querystring.page"
+      integration.request.querystring.type: "method.request.querystring.type"
+    passthroughBehavior: "when_no_match"
+    httpMethod: "GET"
+    type: "http"
+
+post:
+  operationId: "CreatePet"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/NewPet"
+    required: true
+  responses:
+    200:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NewPetResponse"
+  x-amazon-apigateway-integration:
+    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets"
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+    passthroughBehavior: "when_no_match"
+    httpMethod: "POST"
+    type: "http"
+
+options:
+  responses:
+    200:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Empty"
+  x-amazon-apigateway-integration:
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Methods: "'POST,GET,OPTIONS'"
+          method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+    requestTemplates:
+      application/json: "{\"statusCode\": 200}"
+    passthroughBehavior: "when_no_match"
+    type: "mock"
