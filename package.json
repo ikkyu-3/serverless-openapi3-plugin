@@ -8,7 +8,7 @@
     "serverless"
   ],
   "repository": "https://github.com/ikkyu-3/serverless-openapi3-plugin.git",
-  "author": "ikkyu-3 <toru.hasegawa.0521@gmail.com>",
+  "author": "ikkyu-3",
   "bugs": {
     "url": "https://github.com/ikkyu-3/serverless-openapi3-plugin/issues"
   },
