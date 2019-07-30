@@ -1,12 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,28 +17,26 @@ class ServerlessOpenapi3Plugin {
             "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(this)
         };
     }
-    createDeployentArtifacts() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const service = this.serverless.variables.service;
-            const resources = service.resources;
-            const openApiPath = path_1.default.resolve(this.serverless.config.servicePath, service.custom.openApiPath);
-            process.chdir(path_1.default.dirname(openApiPath));
-            try {
-                const yamlFile = yield readFile(openApiPath, { encoding: "utf8" });
-                const openApi = yield json_refs_1.resolveRefs(js_yaml_1.safeLoad(yamlFile), {
-                    filter: ["relative", "remote"],
-                    loaderOptions: {
-                        processContent: (res, callback) => {
-                            callback(js_yaml_1.safeLoad(res.text));
-                        }
+    async createDeployentArtifacts() {
+        const service = this.serverless.variables.service;
+        const resources = service.resources;
+        const openApiPath = path_1.default.resolve(this.serverless.config.servicePath, service.custom.openApiPath);
+        process.chdir(path_1.default.dirname(openApiPath));
+        try {
+            const yamlFile = await readFile(openApiPath, { encoding: "utf8" });
+            const openApi = await json_refs_1.resolveRefs(js_yaml_1.safeLoad(yamlFile), {
+                filter: ["relative", "remote"],
+                loaderOptions: {
+                    processContent: (res, callback) => {
+                        callback(js_yaml_1.safeLoad(res.text));
                     }
-                }).then((res) => res.resolved);
-                this.replaceOpenAPi(resources, openApi);
-            }
-            catch (e) {
-                console.error(e);
-            }
-        });
+                }
+            }).then((res) => res.resolved);
+            this.replaceOpenAPi(resources, openApi);
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
     replaceOpenAPi(resources, openApi) {
         for (let value of Object.values(resources)) {
