@@ -9,16 +9,17 @@ import Serverless from "serverless";
 const readFile = util.promisify(fs.readFile);
 
 class ServerlessOpenapi3Plugin {
+  public hooks: { [x: string]: () => void };
+
   private serverless: Serverless;
   private options: Serverless.Options;
-  private hooks: { [x: string]: () => void };
 
   public constructor(serverless: Serverless, options: Serverless.Options) {
     this.serverless = serverless;
     this.options = options;
 
     this.hooks = {
-      "before:deploy:createDeploymentArtifacts": this.createDeployentArtifacts.bind(
+      "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(
         this
       )
     };

@@ -22,7 +22,7 @@ class ServerlessOpenapi3Plugin {
         this.serverless = serverless;
         this.options = options;
         this.hooks = {
-            "before:deploy:createDeploymentArtifacts": this.createDeployentArtifacts.bind(this)
+            "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(this)
         };
     }
     createDeployentArtifacts() {
