@@ -24,6 +24,8 @@ When you want to use `$ref` syntax in OpenApi File, use this plugin.
 
 ### example project
 
+The example project uses example API of Amazon API Gateway.
+
 ```sh
 .
 ├── resources
