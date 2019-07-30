@@ -1,0 +1,68 @@
+get:
+  operationId: "GetPet"
+  parameters:
+  - name: "petId"
+    in: "path"
+    required: true
+    schema:
+      type: "string"
+  responses:
+    200:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Pet"
+  x-amazon-apigateway-integration:
+    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets/{petId}"
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+    requestParameters:
+      integration.request.path.petId: "method.request.path.petId"
+    passthroughBehavior: "when_no_match"
+    httpMethod: "GET"
+    type: "http"
+
+options:
+  parameters:
+  - name: "petId"
+    in: "path"
+    required: true
+    schema:
+      type: "string"
+  responses:
+    200:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Empty"
+  x-amazon-apigateway-integration:
+    responses:
+      default:
+        statusCode: "200"
+        responseParameters:
+          method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+          method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+          method.response.header.Access-Control-Allow-Origin: "'*'"
+    requestTemplates:
+      application/json: "{\"statusCode\": 200}"
+    passthroughBehavior: "when_no_match"
+    type: "mock"

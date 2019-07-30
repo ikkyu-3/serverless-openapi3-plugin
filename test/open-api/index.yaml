@@ -1,0 +1,23 @@
+openapi: "3.0.1"
+
+info:
+  title: "PetStore"
+  version: "2019-07-27T09:07:00Z"
+
+servers:
+- url: "https://ifi2axc0wi.execute-api.ap-northeast-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/dev"
+
+paths:
+  /pets:
+    $ref: './paths/pets.yaml'
+  /pets/{petId}:
+    $ref: './paths/pets-id.yaml'
+  /:
+    $ref: './paths/root.yaml'
+
+components:
+  schemas:
+    $ref: './components/schemas.yaml'
