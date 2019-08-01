@@ -1,14 +1,15 @@
 {
   "name": "serverless-openapi3-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Serverless plugin to resolve $ref syntax of OpenAPI3",
   "main": "dist/index.js",
   "keywords": [
-    "openapi",
+    "OpenApi",
     "serverless"
   ],
   "repository": "https://github.com/ikkyu-3/serverless-openapi3-plugin.git",
   "author": "ikkyu-3",
+  "private": false,
   "bugs": {
     "url": "https://github.com/ikkyu-3/serverless-openapi3-plugin/issues"
   },
