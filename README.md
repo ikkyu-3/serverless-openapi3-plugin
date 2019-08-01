@@ -1,5 +1,9 @@
 # serverless-openapi3-plugin
 
+[![CircleCI](https://circleci.com/gh/ikkyu-3/serverless-openapi3-plugin/tree/master.svg?style=svg)](https://circleci.com/gh/ikkyu-3/serverless-openapi3-plugin/tree/master)
+[![npm version](https://badge.fury.io/js/serverless-openapi3-plugin.svg)](https://badge.fury.io/js/serverless-openapi3-plugin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Serverless plugin to resolve `$ref` syntax of OpenAPI3
 
 ## install
