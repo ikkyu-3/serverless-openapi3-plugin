@@ -33,6 +33,7 @@ class ServerlessOpenapi3Plugin {
                 }
             }).then((res) => res.resolved);
             this.replaceOpenAPi(resources, openApi);
+            await this.serverless.variables.populateService(this.serverless.pluginManager.cliOptions);
         }
         catch (e) {
             console.error(e);

@@ -1,16 +1,21 @@
+import Serverless from "serverless";
 import ServerlessOpenapi3Plugin from "../src/index";
-import { dummyServerless, dummyConfig, openApi } from "./testData";
+import { service, options, openApi } from "./testData";
 
 describe("ServerlessOpenapi3Plugin Test", () => {
-  const plugin = new ServerlessOpenapi3Plugin(dummyServerless, dummyConfig);
-
   it("should replace OpenApi Object of RestApi Resource with resolved OpenApi Object", async () => {
+    const serverless = new Serverless();
+    serverless.config.servicePath = __dirname;
+    Object.assign((serverless.variables as any).service, service);
+
+    const plugin = new ServerlessOpenapi3Plugin(serverless, options);
+
     const func = plugin.hooks["package:createDeploymentArtifacts"];
     await func();
 
     expect(
-      dummyServerless.variables.service.resources.Resources.RestApi.Properties
-        .Body
+      (serverless.variables as any).service.resources.Resources.RestApi
+        .Properties.Body
     ).toEqual(openApi);
   });
 });

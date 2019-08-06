@@ -4,7 +4,11 @@ import util from "util";
 import { isObject, isArray } from "lodash";
 import { safeLoad } from "js-yaml";
 import { resolveRefs } from "json-refs";
-import Serverless from "serverless";
+import * as Serverless from "serverless";
+
+interface Variables {
+  populateService(cliOptions: any): Promise<void>;
+}
 
 const readFile = util.promisify(fs.readFile);
 
@@ -52,6 +56,9 @@ class ServerlessOpenapi3Plugin {
       );
 
       this.replaceOpenAPi(resources, openApi);
+      await (this.serverless.variables as Variables).populateService(
+        this.serverless.pluginManager.cliOptions
+      );
     } catch (e) {
       console.error(e);
     }

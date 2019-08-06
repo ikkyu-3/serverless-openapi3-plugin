@@ -18,7 +18,7 @@ get:
           schema:
             $ref: "#/components/schemas/Pet"
   x-amazon-apigateway-integration:
-    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets/{petId}"
+    uri: "${self:custom.baseUrl}/petstore/pets/{petId}"
     responses:
       default:
         statusCode: "200"

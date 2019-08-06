@@ -20,7 +20,7 @@ get:
           schema:
             $ref: "#/components/schemas/Pets"
   x-amazon-apigateway-integration:
-    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets"
+    uri: "${self:custom.baseUrl}/petstore/pets"
     responses:
       default:
         statusCode: "200"
@@ -53,7 +53,7 @@ post:
           schema:
             $ref: "#/components/schemas/NewPetResponse"
   x-amazon-apigateway-integration:
-    uri: "http://petstore.execute-api.ap-northeast-1.amazonaws.com/petstore/pets"
+    uri: "${self:custom.baseUrl}/petstore/pets"
     responses:
       default:
         statusCode: "200"

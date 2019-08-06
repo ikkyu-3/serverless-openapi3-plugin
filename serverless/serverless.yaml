@@ -11,6 +11,7 @@ provider:
 
 custom:
   openApiPath: './resources/open-api/index.yaml'
+  baseUrl: 'http://petstore.execute-api.ap-northeast-1.amazonaws.com'
 
 resources:
   - ${file(./resources/api-gateway.yaml)}

@@ -1,75 +1,69 @@
 import Serverless from "serverless";
 
-export const dummyServerless: any = {
-  variables: {
-    service: {
-      resources: {
-        Resources: {
-          RestApi: {
-            Type: "AWS::ApiGateway::RestApi",
-            Properties: {
-              Name: "rest-api",
-              Body: {
-                openapi: "3.0.1",
-                info: {
-                  title: "PetStore",
-                  version: "2019-07-27T09:07:00Z"
-                },
-                servers: [
-                  {
-                    url:
-                      "https://ifi2axc0wi.execute-api.ap-northeast-1.amazonaws.com/{basePath}",
-                    variables: {
-                      basePath: {
-                        default: "/dev"
-                      }
-                    }
-                  }
-                ],
-                paths: {
-                  "/pets": {
-                    $ref: "./paths/pets.yaml"
-                  },
-                  "/pets/{petId}": {
-                    $ref: "./paths/pets-id.yaml"
-                  },
-                  "/": {
-                    $ref: "./paths/root.yaml"
-                  }
-                },
-                components: {
-                  schemas: {
-                    $ref: "./components/schemas.yaml"
+export const service: any = {
+  custom: {
+    openApiPath: "./open-api/index.yaml",
+    baseUrl: "http://petstore.execute-api.ap-northeast-1.amazonaws.com"
+  },
+  resources: {
+    Resources: {
+      RestApi: {
+        Type: "AWS::ApiGateway::RestApi",
+        Properties: {
+          Name: "rest-api",
+          Body: {
+            openapi: "3.0.1",
+            info: {
+              title: "PetStore",
+              version: "2019-07-27T09:07:00Z"
+            },
+            servers: [
+              {
+                url:
+                  "https://ifi2axc0wi.execute-api.ap-northeast-1.amazonaws.com/{basePath}",
+                variables: {
+                  basePath: {
+                    default: "/dev"
                   }
                 }
               }
-            }
-          },
-          RestApiDeployment: {
-            Type: "AWS::ApiGateway::Deployment",
-            Properties: {
-              RestApiId: {
-                Ref: "RestApi"
+            ],
+            paths: {
+              "/pets": {
+                $ref: "./paths/pets.yaml"
               },
-              StageName: "dev"
+              "/pets/{petId}": {
+                $ref: "./paths/pets-id.yaml"
+              },
+              "/": {
+                $ref: "./paths/root.yaml"
+              }
             },
-            DependsOn: "RestApi"
+            components: {
+              schemas: {
+                $ref: "./components/schemas.yaml"
+              }
+            }
           }
         }
       },
-      custom: {
-        openApiPath: "./open-api/index.yaml"
+      RestApiDeployment: {
+        Type: "AWS::ApiGateway::Deployment",
+        Properties: {
+          RestApiId: {
+            Ref: "RestApi"
+          },
+          StageName: "dev"
+        },
+        DependsOn: "RestApi"
       }
     }
-  },
-  config: {
-    servicePath: __dirname
   }
 };
 
-export const dummyConfig: Serverless.Options = {
-  stage: null,
-  region: null
+export const options: Serverless.Options = {
+  stage: "dev",
+  region: "us-east-1"
 };
 
 export const openApi = {
