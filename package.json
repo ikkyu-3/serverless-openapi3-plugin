@@ -1,6 +1,6 @@
 {
   "name": "serverless-openapi3-plugin",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Serverless plugin to resolve $ref syntax of OpenAPI3",
   "main": "dist/index.js",
   "keywords": [
