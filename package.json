@@ -47,10 +47,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,js}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{ts,js}": "eslint --fix"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
