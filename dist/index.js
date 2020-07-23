@@ -14,7 +14,7 @@ class ServerlessOpenapi3Plugin {
         this.serverless = serverless;
         this.options = options;
         this.hooks = {
-            "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(this)
+            "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(this),
         };
     }
     async createDeployentArtifacts() {
@@ -24,13 +24,16 @@ class ServerlessOpenapi3Plugin {
         process.chdir(path_1.default.dirname(openApiPath));
         try {
             const yamlFile = await readFile(openApiPath, { encoding: "utf8" });
-            const openApi = await json_refs_1.resolveRefs(js_yaml_1.safeLoad(yamlFile), {
+            const files = js_yaml_1.safeLoad(yamlFile);
+            if (typeof files !== "object")
+                return;
+            const openApi = await json_refs_1.resolveRefs(files, {
                 filter: ["relative", "remote"],
                 loaderOptions: {
                     processContent: (res, callback) => {
                         callback(js_yaml_1.safeLoad(res.text));
-                    }
-                }
+                    },
+                },
             }).then((res) => res.resolved);
             this.replaceOpenAPi(resources, openApi);
             await this.serverless.variables.populateService(this.serverless.pluginManager.cliOptions);
@@ -40,7 +43,7 @@ class ServerlessOpenapi3Plugin {
         }
     }
     replaceOpenAPi(resources, openApi) {
-        for (let value of Object.values(resources)) {
+        for (const value of Object.values(resources)) {
             if (this.hasOpenApi(value)) {
                 value.Body = openApi;
                 return;

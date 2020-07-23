@@ -25,7 +25,7 @@ class ServerlessOpenapi3Plugin {
     this.hooks = {
       "package:createDeploymentArtifacts": this.createDeployentArtifacts.bind(
         this
-      )
+      ),
     };
   }
 
@@ -41,7 +41,9 @@ class ServerlessOpenapi3Plugin {
 
     try {
       const yamlFile = await readFile(openApiPath, { encoding: "utf8" });
-      const openApi = await resolveRefs(safeLoad(yamlFile), {
+      const files = safeLoad(yamlFile);
+      if (typeof files !== "object") return;
+      const openApi = await resolveRefs(files, {
         filter: ["relative", "remote"],
         loaderOptions: {
           processContent: (
@@ -49,8 +51,8 @@ class ServerlessOpenapi3Plugin {
             callback: (arg0: any) => void
           ): void => {
             callback(safeLoad(res.text));
-          }
-        }
+          },
+        },
       }).then(
         (res: { [x: string]: any }): { [x: string]: any } => res.resolved
       );
@@ -68,7 +70,7 @@ class ServerlessOpenapi3Plugin {
     resources: { [x: string]: any },
     openApi: { [x: string]: any }
   ): void {
-    for (let value of Object.values(resources)) {
+    for (const value of Object.values(resources)) {
       if (this.hasOpenApi(value)) {
         value.Body = openApi;
         return;

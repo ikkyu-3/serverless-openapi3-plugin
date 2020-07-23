@@ -1,7 +1,6 @@
 {
   "env": {
     "node": true,
-    "es6": true,
     "jest": true
   },
   "extends": [
@@ -11,8 +10,7 @@
     "prettier/@typescript-eslint"
   ],
   "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+    "ecmaVersion": 2018
   },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
